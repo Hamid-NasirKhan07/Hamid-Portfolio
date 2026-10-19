@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-deep: #020409;
+  --bg-dark: #060c18;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --accent: #6c63ff;
+  --accent2: #00d4ff;
+  --accent3: #ff6b9d;
+  --gold: #f5c842;
+  --neon-green: #2dffb3;
+  --text: #e8eaf6;
+  --text-muted: rgba(232, 234, 246, 0.55);
+  --border: rgba(108, 99, 255, 0.18);
+  --glow: 0 0 60px rgba(108, 99, 255, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-outfit), sans-serif;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(108, 99, 255, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Background Noise Texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Grid Background */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(108, 99, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108, 99, 255, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* Ambient Orbs */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 14s ease-in-out infinite alternate;
+}
+.orb-1 {
+  width: 650px;
+  height: 650px;
+  background: var(--accent);
+  top: -200px;
+  left: -200px;
+  animation-delay: 0s;
+}
+.orb-2 {
+  width: 550px;
+  height: 550px;
+  background: var(--accent2);
+  bottom: -150px;
+  right: -150px;
+  animation-delay: -4s;
+}
+.orb-3 {
+  width: 450px;
+  height: 450px;
+  background: var(--accent3);
+  top: 45%;
+  left: 60%;
+  animation-delay: -8s;
+}
+
+@keyframes orbFloat {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(35px, 45px) scale(1.08);
+  }
+}
+
+/* Glitch Heading Effect */
+@keyframes glitch1 {
+  0%, 100% {
+    clip-path: inset(0 0 100% 0);
+  }
+  10% {
+    clip-path: inset(10% 0 80% 0);
+  }
+  20% {
+    clip-path: inset(40% 0 40% 0);
+  }
+  30% {
+    clip-path: inset(70% 0 10% 0);
+  }
+  40% {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+.glitch-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-wrap::before,
+.glitch-wrap::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-bebas), sans-serif;
+  font-size: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  pointer-events: none;
+}
+
+.glitch-wrap::before {
+  background: linear-gradient(135deg, var(--accent3), var(--accent3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  left: 2px;
+  animation: glitch1 6s infinite;
+  opacity: 0.6;
+}
+
+.glitch-wrap::after {
+  background: linear-gradient(135deg, var(--accent2), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  left: -2px;
+  animation: glitch1 6s infinite 0.3s;
+  opacity: 0.5;
+}
+
+/* Template Button Styles */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  padding: 0.75rem 2rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(108, 99, 255, 0.14);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.btn-glow:hover {
+  border-color: var(--accent2);
+  box-shadow: 0 0 30px rgba(108, 99, 255, 0.45);
+  color: #fff;
+}
+
+.btn-glow:hover::before {
+  opacity: 1;
+}
+
+.btn-outline-glow {
+  padding: 0.75rem 2rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-outline-glow:hover {
+  border-color: var(--accent3);
+  color: var(--accent3);
+  box-shadow: 0 0 20px rgba(255, 107, 157, 0.25);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
